@@ -21,7 +21,7 @@ img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 img = cv2.Canny(img, 200, 200)
 
 # increase the boldness of the lines (увеличить жирность линий)
-kernel = np.ones((5, 5), np.uint8)
+kernel = np.ones((4, 4), np.uint8)
 img = cv2.dilate(img, kernel, iterations=1)
 
 img = cv2.erode(img, kernel, iterations=1)
