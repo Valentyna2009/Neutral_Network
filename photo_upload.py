@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # upload the image
-img = cv2.imread('ai/images/car1.jpg')
+img = cv2.imread('ai/images/smile1.jpg')
 
 # lets halve the picture because it doesnt fit (не помещается) on the display
 half_width = img.shape[0] // 2
