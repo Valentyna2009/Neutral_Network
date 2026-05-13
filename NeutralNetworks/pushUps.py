@@ -1,29 +1,37 @@
 import cv2
 import numpy as np
-import cvzone
-from cvzone.PoseModule import PoseDetector
-import math 
-import mediapipe as mp
+import random
+#from ultralytics import YOLO
+#from utils import (
+#    align_points_to_fixed_reference_line,
+#    getAngle,
+#    draw_pts,
+#    draw_connection,
+#    draw_pushup_bar,
+#    draw_counter
+#)
+
+#set background image
+img_bg_path = 'NeutralNetworks/bg.png'
+
+#read background image
+img_bg = cv2.imread(img_bg_path)
+cv2.imshow('Push ups recognize', img_bg)
+
+while True:
+    cv2.imshow('Push ups recognize', img_bg)
+    
+    #project the bg image for infinite time
+    key = cv2.waitKey(0)
+
+    key_ord = ['L', 'l', 'R', 'r', 'F', 'f']
+
+    for i in key_ord:
+        if key == ord(i):
+            print(key)
+
+        elif key == ord('S') or key == ord('s'):
+            break
 
 
-# load the video
-cap = cv2.VideoCapture('Neutral Networks/vid1(2).mp4')
-
-# show connected arms lines
-pd = PoseDetector(trackCon=0.70,detectionCon=0.70)
-
-
-while 1:
-    ret,img = cap.read()
-    if not ret:
-        cap = cv2.VideoCapture('vid1.mp4')
-        continue
-
-    pd.findPose(img,draw=0)
-
-
-    cv2.imshow('frame',img)
-    cv2.waitKey(1)
-
-cap.release()
 cv2.destroyAllWindows()
