@@ -37,32 +37,32 @@ def get_video(folder_name):
     return video_path
 
 # pose detection function
-def run_pose_detection(video_path, side):
-    global counter, stage
+# def run_pose_detection(video_path, side):
+#     global counter, stage
 
-    #open video
-    cap = cv2.VideoCapture(video_path)
+#     #open video
+#     cap = cv2.VideoCapture(video_path)
 
-    # error if video is not found
-    if not cap.isOpened():
-        print('Video is not found', video_path)
-        return
+#     # error if video is not found
+#     if not cap.isOpened():
+#         print('Video is not found', video_path)
+#         return
     
-    while cap.isOpened():
-        #ret - bool (true) if frame is worked. frame - array (set) of vector images that changes with default frames per second
-        ret, frame = cap.read()
-        #end of video
-        if not ret: # == false
-            counter = 0
-            break
+#     while cap.isOpened():
+#         #ret - bool (true) if frame is worked. frame - array (set) of vector images that changes with default frames per second
+#         ret, frame = cap.read()
+#         #end of video
+#         if not ret: # == false
+#             counter = 0
+#             break
 
-        #show the video
-        cv2.imshow('Push ups counter', frame)
-        #display video until it ends
-        key = cv2.waitKey(1)
-        if key == 'S' or key == 's':
-            counter = 0
-            sys.exit()
+#         #show the video
+#         cv2.imshow('Push ups counter', frame)
+#         #display video until it ends
+#         key = cv2.waitKey(1)
+#         if key == 'S' or key == 's':
+#             counter = 0
+#             sys.exit()
     
     
 while True:
@@ -79,6 +79,9 @@ while True:
 
         elif key == ord('S') or key == ord('s'):
             sys.exit()
+
+        elif key == key_ord[-2:]:
+            print('very good')
             
 
 
