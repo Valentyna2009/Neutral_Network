@@ -37,32 +37,33 @@ def get_video(folder_name):
     return video_path
 
 # pose detection function
-# def run_pose_detection(video_path, side):
-#     global counter, stage
+def run_pose_detection(video_path):
+    global counter, stage
 
-#     #open video
-#     cap = cv2.VideoCapture(video_path)
+    #open video
+    cap = cv2.VideoCapture(video_path)
 
-#     # error if video is not found
-#     if not cap.isOpened():
-#         print('Video is not found', video_path)
-#         return
+    # error if video is not found
+    if not cap.isOpened():
+        print('Video is not found', video_path)
+        return
     
-#     while cap.isOpened():
-#         #ret - bool (true) if frame is worked. frame - array (set) of vector images that changes with default frames per second
-#         ret, frame = cap.read()
-#         #end of video
-#         if not ret: # == false
-#             counter = 0
-#             break
+    while cap.isOpened():
+        #ret - bool (true) if frame is worked. frame - array (set) of vector images that changes with default frames per second
+        ret, frame = cap.read()
+        #end of video
+        if not ret: # == false
+            # push ups count is 0
+            counter = 0
+            break
 
-#         #show the video
-#         cv2.imshow('Push ups counter', frame)
-#         #display video until it ends
-#         key = cv2.waitKey(1)
-#         if key == 'S' or key == 's':
-#             counter = 0
-#             sys.exit()
+        #show the video
+        cv2.imshow('Push ups counter', frame)
+        #display video until it ends
+        key = cv2.waitKey(10)
+        if key == 'S' or key == 's':
+            counter = 0
+            sys.exit()
     
     
 while True:
@@ -71,18 +72,17 @@ while True:
     #project the bg image for infinite time
     key = cv2.waitKey(0)
 
-    key_ord = ['L', 'l', 'R', 'r', 'F', 'f']
+    if key == ord('F') or key == ord('f'):
+        run_pose_detection("NeutralNetworks/F/front_side.mp4")
 
-    for i in key_ord:
-        if key == ord(i):
-            print(key)
+    elif key == ord('L') or key == ord('l'):
+        run_pose_detection("NeutralNetworks/L/left_side.mp4")
 
-        elif key == ord('S') or key == ord('s'):
-            sys.exit()
-
-        elif key == key_ord[-2:]:
-            print('very good')
+    elif key == ord('R') or key == ord('r'):
+        run_pose_detection("NeutralNetworks/R/right_side.mp4")
             
+    elif key == ord('S') or key == ord('s'):
+        sys.exit()
 
-
+cap.release()
 cv2.destroyAllWindows()
