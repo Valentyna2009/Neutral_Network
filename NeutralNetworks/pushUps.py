@@ -3,15 +3,15 @@ import sys
 import os
 import numpy as np
 import random
-#from ultralytics import YOLO
-#from utils import (
-#    align_points_to_fixed_reference_line,
-#    getAngle,
-#    draw_pts,
-#    draw_connection,
-#    draw_pushup_bar,
-#    draw_counter
-#)
+from ultralytics import YOLO
+from utils import (
+   align_points_to_fixed_reference_line,
+   getAngle,
+   draw_pts,
+   draw_connection,
+   draw_pushup_bar,
+   draw_counter
+)
 
 #set background image
 img_bg_path = 'NeutralNetworks/bg.png'
@@ -19,6 +19,10 @@ img_bg_path = 'NeutralNetworks/bg.png'
 #read background image
 img_bg = cv2.imread(img_bg_path)
 cv2.imshow('Push ups recognize', img_bg)
+
+#Load YOLO model
+model = YOLO('NeutralNetworks/yolov8n.pt')
+print('Model service:', model.info())
 
 # function to get video depending on side L/R/F the user chooses
 def get_video(folder_name):
@@ -56,6 +60,12 @@ def run_pose_detection(video_path):
             # push ups count is 0
             counter = 0
             break
+
+        frame = cv2.resize(frame, (1280, 720))
+        results = model.predict(frame, conf=0.5, verbose = False)
+        keypoints = results[0].keypoints.xy[0]
+        p = keypoints.cpu().numpy()
+        frame = draw_pts(frame, p)
 
         #show the video
         cv2.imshow('Push ups counter', frame)
